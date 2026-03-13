@@ -20,6 +20,8 @@ Release/
 .vs/
 
 # VS Code settings
+*.ilk
+*.pdp
 .vscode/
 
 # Logs
