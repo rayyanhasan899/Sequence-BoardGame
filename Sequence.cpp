@@ -1,3 +1,4 @@
+#include "ConsoleInput.h"
 #include<iostream>
 #include<iomanip>
 #include<ctime>
@@ -39,7 +40,7 @@ int main()
 	//"Hearts♥  ";
 	initializeDeck();							  //"Diamonds♦";
 	cout << "    " << endl;
-
+    return 0;
 }
 void initializeDeck()
 {
@@ -203,25 +204,18 @@ void playturn(int board[][10], int deck[], int player1hand[], int player2hand[],
 	int currentplayer = 1, playerCard, move;
 	for (int loop = 0; true; loop++)
 	{
+        if (sizedeck >= 104) {
+            cout << "\nTHE DECK IS EMPTY\nNo one wins";
+            return;
+        }
 		cout << "\n  current player: " << currentplayer << endl;
 		int player1Turns = 0, player2Turns = 0;
 		int choice2, choice_Number2;
 		PrintBoard(board, player1hand, player2hand, currentplayer);
 		while (true)
 		{
-			cout << "\nEnter your card number according to your hand like 1,2,3,4,5,6,7 : ";
-			cin >> move;
-			move -= 1;
-			choice2 = 900;
-			char choice_2;
-			while (choice2 > 11 || choice2 < 0 || choice_Number2>11 || choice_Number2 < 0)
-			{
-				cout << "\nWHICH BOX DO YOU WANT TO MOVE TO: ";
-				cin >> choice_2;
-				cin >> choice_Number2;
-				choice2 = static_cast<int>(choice_2) - 65;
-			}
-			choice_Number2 -= 1;
+            if (!readChoice(cin, cout, "\nSelect card (1-7): ", 7, move) ||
+                !readSquare(cin, cout, "\nWHICH BOX DO YOU WANT TO MOVE TO: ", 10, choice2, choice_Number2)) return;
 			if (currentplayer == 1)
 			{
 				playerCard = player1hand[move];
@@ -260,7 +254,7 @@ void playturn(int board[][10], int deck[], int player1hand[], int player2hand[],
 			}
 			cout << "\nwrong card enter again";
 		}
-		if (sizedeck == 108)
+		if (sizedeck >= 104)
 		{
 			cout << "\nTHE DECK IS EMPTY";
 			cout << "\nNo one wins";
