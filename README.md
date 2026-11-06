@@ -1,30 +1,41 @@
-# Sequence Board Game (C++)
+# Console Sequence
 
-A terminal-based implementation of the classic **Sequence Board Game** developed in **C++**.
+A personal C++ implementation of a two-player Sequence-style card-and-board game in a Windows terminal.
 
-This project was built as a programming challenge to implement game logic, board management, and card mechanics similar to the real Sequence board game.
+## Demonstration
 
----
+![Terminal demonstration](docs/images/demo.png)
 
-## Features
+A cropped frame from the owner's existing recording. It illustrates the original terminal interface, not a fresh end-to-end test of this revision. No audio is included. [Frame provenance](docs/DEMONSTRATION.md).
 
-- Full 10x10 game board
-- Card-based gameplay
-- Two-player turn system
-- Win condition detection
-- Console-based interface
-- Implemented using modular C++ design
+## Gameplay and implementation
 
----
+Players receive seven cards and take turns choosing a hand position **1–7** and a board square using uppercase columns **A–J** and rows **1–10**. The source maintains a 10×10 integer-encoded board, a shuffled deck, jack-related behavior, and a sequence win check. Press a key through the hand-off prompts before each turn.
 
-## Technologies Used
+This is a procedural programming project with functions for dealing, rendering, input, and win checking. Its existing rules are retained, including its custom card/board encodings; it is not advertised as full commercial-game rule compliance.
 
-- C++
-- Object-Oriented Programming
-- Standard Template Library (STL)
+## Build and run on Windows
 
----
+The source uses `<windows.h>` and `<conio.h>` for terminal colours/input. Native Linux/macOS compilation is not claimed. Install Visual Studio with the Desktop development with C++ workload and CMake, then run:
 
-## How to Compile
+```powershell
+cmake -S . -B build
+cmake --build build --config Release
+.\build\Release\console-sequence.exe
+```
 
-Using g++:
+For a single-configuration generator the executable is directly under `build/`. Alternatively, from an x64 Visual Studio Developer Command Prompt:
+
+```bat
+cl /nologo /EHsc /std:c++17 /utf-8 Sequence.cpp /Fe:console-sequence.exe
+```
+
+Use a wide terminal for the board/card rendering. Build only the entry source named above; compiling every `.cpp` together may include multiple `main` functions.
+
+## Validation and limitations
+
+See [validation notes](docs/VALIDATION.md) for observed build/test results and known limitations. Build success does not establish every game rule as correct. Run focused tests with `cmake --build build --config Debug` and `ctest --test-dir build -C Debug --output-on-failure`. There is no hosted deployment.
+
+## Project context
+
+Personal experimental project by Syed Muhammad Rayyan Hassan.

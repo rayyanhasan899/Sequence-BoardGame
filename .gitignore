@@ -26,3 +26,9 @@ Release/
 
 # Logs
 *.log
+# Local compiler/CMake output
+/build/
+*.obj
+*.exe
+*.pdb
+*.ilk
